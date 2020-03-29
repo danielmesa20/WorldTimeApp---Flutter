@@ -8,6 +8,6 @@ Cambios con respecto al versión original de "The Ninja Net"
 
 - Se cambió que en la pantalla "Home" saliera por defecto la hora de Berlín, ahora sale la hora dependiendo del pais de la ip del telefono.
 
-- Se solucionó error cuando se selecionaba el botón de atrás del dispositivo en la pantalla "Choose Country".
+- Se solucionó error cuando se presionaba el botón de atrás del dispositivo en la pantalla "Choose a Location".
 
-- Se hora del país seleccionado en la pantalla "Home" se actualiza cada 60 segundos.
+- Se hora del país seleccionado en la pantalla "Home" se actualiza cada 60 segundos (versión beta).
