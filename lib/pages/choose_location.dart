@@ -8,15 +8,15 @@ class ChooseLocation extends StatefulWidget {
 }
 
 class _ChooseLocationState extends State<ChooseLocation> {
-
   WorldTime instance;
   bool loading = false;
-  String location;
 
   List<WorldTime> locations = [
-   
-    WorldTime(url: 'Europe/Berlin', location: 'Athens', flag: 'greece.png'),
+    WorldTime(url: 'America/Cordoba', location: 'Cordoba', flag: 'arg.png'),
+    WorldTime(url: 'Europe/Athens', location: 'Athens', flag: 'greece.png'),
+    WorldTime(url: 'Europe/Berlin', location: 'Berlin', flag: 'germany.png'),
     WorldTime(url: 'Africa/Cairo', location: 'Cairo', flag: 'egypt.png'),
+    WorldTime(url: 'America/Caracas', location: 'Caracas', flag: 'vene.png'),
     WorldTime(url: 'America/Chicago', location: 'Chicago', flag: 'usa.png'),
     WorldTime(url: 'Asia/Jakarta', location: 'Jakarta', flag: 'indonesia.png'),
     WorldTime(url: 'Europe/London', location: 'London', flag: 'uk.png'),
@@ -31,7 +31,6 @@ class _ChooseLocationState extends State<ChooseLocation> {
 
   void updateTime(index) async {
     instance = locations[index];
-    location = locations[index].location;
     await instance.getTime();
 
     //Navigate to home screen
@@ -45,14 +44,18 @@ class _ChooseLocationState extends State<ChooseLocation> {
 
   @override
   Widget build(BuildContext context) {
+
+    Color appBarColor = loading ? Colors.grey[900] : Colors.blue[900];
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue[900],
-        title: Text("Choose a Location"),
-        centerTitle: true,
-        elevation: 0.0,
-      ),
-      backgroundColor: Colors.grey[200],
+      appBar: loading == false
+          ? AppBar(
+              backgroundColor: appBarColor,
+              title: Text("Choose a Location"),
+              centerTitle: true,
+              elevation: 0.0,
+            )
+          : null,
       body: loading == false
           ? ListView.builder(
               itemCount: locations.length,
@@ -80,7 +83,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
             )
           : Center(
               child: Container(
-                  color: Colors.black,
+                  color: Colors.blue[900],
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -88,7 +91,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 12.0),
                           child: Text(
-                            "Loading time: $location",
+                            "Loading",
                             style:
                                 TextStyle(color: Colors.white, fontSize: 25.0),
                           ),

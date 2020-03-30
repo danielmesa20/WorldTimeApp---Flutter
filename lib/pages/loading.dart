@@ -38,11 +38,29 @@ class _LoadingState extends State<Loading> {
     return Scaffold(
       backgroundColor: Colors.blue[900],
       body: Center(
-            child: SpinKitFoldingCube(
-              color: Colors.white,
-              size: 50.0,
+            child: Container(
+              color: Colors.blue[900],
+               child: Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 12.0),
+                        child: Text(
+                          "Loading",
+                          style:
+                          TextStyle(color: Colors.white, fontSize: 25.0),
+                        ),
+                      ),
+                      SpinKitFoldingCube(
+                        color: Colors.white,
+                        size: 50.0,
+                      ),
+                    ],
+                ),
+              )
+            ),
           ),
-        ),
-    );
+      );
   }
 }
