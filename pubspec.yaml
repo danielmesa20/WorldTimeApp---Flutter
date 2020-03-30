@@ -62,6 +62,11 @@ flutter:
     - family: IndieFlower
       fonts:
         - asset: fonts/IndieFlower-Regular.ttf
+
+    - family: Kalam
+      fonts:
+        - asset: fonts/Kalam-Regular.ttf
+  
   
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'package:intl/intl.dart';  // DateFormat
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -12,6 +14,14 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
+      // Timer t = new Timer(const Duration(seconds: 1), () {
+      //   setState(() {
+      //       data['time'] = DateTime.parse(data['time'])
+      //         .add(Duration(minutes: 1))
+      //         .toString();
+      //   });
+      // });
+
     data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
 
     //Selecciona el background image y background color dependiendo si es de día o de noche
@@ -22,58 +32,35 @@ class _HomeState extends State<Home> {
       backgroundColor: bgColor,
       body: SafeArea(
         child: Container(
-          // decoration: BoxDecoration(
-          //   image: DecorationImage(
-          //     image: AssetImage('assets/$bgImage'),
-          //     fit: BoxFit.cover,
-          //   )
-          // ),
           color: bgImage,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  FlatButton.icon(
-                  onPressed: () async {
-                    dynamic result = await Navigator.pushNamed(context, '/location');
-                    setState(() {
-                      data = {
-                        'time': result['time'],
-                        'location': result['location'],
-                        'isDaytime': result['isDaytime'],
-                        'flag': result['flag']
-                      };
-                    });
-                  }, 
-                  icon: Icon(
-                    Icons.edit_location,
-                    color: Colors.red[300],
-                    size: 30.0,
-                    ),
-                  label: Text(
-                    "Edit Location",
-                    style: TextStyle(
-                      color: Colors.grey[300],
-                      fontSize: 18.0,
-                    ),
-                    ),
-                  ),
-                  SizedBox(height: 20.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
                         data['location'],
                         style: TextStyle (
-                          fontSize: 35.0,
+                          fontSize: 45.0,
                           color: Colors.amberAccent,
                           letterSpacing: 2.0, 
+                          fontFamily: 'Kalam',
                         ),
                       ),
                     ],
                   ),
+                  Text(
+                    data['date'],
+                    style: TextStyle (
+                      fontSize: 17.0,
+                      letterSpacing: 2.0,
+                      color: Colors.white,
+                    ),
+                  ),
                   SizedBox(height: 20.0),
                   Text(
-                    data['time'],
+                    DateFormat.jm().format(DateTime.parse(data['time'])),
                     style: TextStyle (
                       fontSize: 70.0,
                       letterSpacing: 2.0,
@@ -85,20 +72,26 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-          floatingActionButton: FloatingActionButton(
-           onPressed: () async {
-              dynamic result = await Navigator.pushNamed(context, '/location');
-              setState(() {
-                data = {
-                  'time': result['time'],
-                  'location': result['location'],
-                  'isDaytime': result['isDaytime'],
-                  'flag': result['flag']
-                };
-              });
-            }, 
-            child: Icon(Icons.edit_location),
-            backgroundColor: Colors.grey[800],
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.only(bottom: 30.0),
+            child: FloatingActionButton(
+             onPressed: () async {
+                dynamic result = await Navigator.pushNamed(context, '/location');
+                if(result != null){
+                  setState(() {            
+                    data = {
+                      'time': result['time'],
+                      'location': result['location'],
+                      'isDaytime': result['isDaytime'],
+                      'flag': result['flag'],
+                      'date': result['date']
+                    };
+                  });
+                }
+              }, 
+              child: Icon(Icons.edit_location),
+              backgroundColor: Colors.grey[800],
+            ),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
